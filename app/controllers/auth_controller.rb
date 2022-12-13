@@ -1,7 +1,11 @@
 class AuthController < ApplicationController
   
   def get_current_user
-    render json: current_user
+    if session[:user_id]
+      render json: current_user
+    else
+      render json: { message: "You are not logged in" }
+    end
   end
 
   # post /login
