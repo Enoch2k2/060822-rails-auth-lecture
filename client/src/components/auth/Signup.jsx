@@ -1,5 +1,5 @@
 import React, { useState } from 'react'
-import { headers } from '../../globals'
+import { baseUrl, headers } from '../../globals'
 
 const Signup = ({ loginUser }) => {
   const [username, setUsername] = useState("")
@@ -15,7 +15,7 @@ const Signup = ({ loginUser }) => {
     }
 
     // make a post request to /signup
-    fetch("/signup", {
+    fetch(baseUrl + "/signup", {
       method: "POST",
       headers,
       body: JSON.stringify(user)
@@ -26,6 +26,7 @@ const Signup = ({ loginUser }) => {
           console.log(data.errors)
         } else {
           loginUser(data);
+          // data.jwt
         }
       })
     // loginUser

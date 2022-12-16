@@ -6,7 +6,7 @@ import Signup from './components/auth/Signup';
 import Profile from './components/dashboard/Profile';
 import Navbar from './components/navigation/Navbar';
 import Home from './components/static/Home';
-import { baseUrl } from './globals';
+import { baseUrl, headers, authorization } from './globals';
 
 const App = () => {
   const [currentUser, setCurrentUser] = useState({});
@@ -14,7 +14,12 @@ const App = () => {
   const [loading, setLoading] = useState(true);
 
   useEffect(() => {
-    fetch("/get-current-user")
+    fetch(baseUrl + "/get-current-user", {
+      headers: {
+        ...headers,
+        ...authorization
+      }
+    })
       .then(resp => resp.json())
       .then(data => {
         if(!data.message) {
@@ -27,14 +32,16 @@ const App = () => {
       })
   }, [])
 
-  const loginUser = user => {
-    setCurrentUser(user);
+  const loginUser = data => {
+    setCurrentUser(data.user);
     setLoggedIn(true);
+    localStorage.setItem('jwt', data.jwt)
   }
 
   const logoutUser = () => {
     setCurrentUser({});
     setLoggedIn(false);
+    localStorage.removeItem('jwt')
   }
 
   if(loading) {

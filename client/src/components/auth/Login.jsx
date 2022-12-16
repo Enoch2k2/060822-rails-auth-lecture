@@ -1,5 +1,5 @@
 import React, { useState } from 'react'
-import { headers } from '../../globals'
+import { baseUrl, headers } from '../../globals'
 
 const Login = ({ loginUser }) => {
   const [username, setUsername] = useState("")
@@ -7,7 +7,7 @@ const Login = ({ loginUser }) => {
 
   const handleSubmit = e => {
     e.preventDefault();
-    fetch("/login", {
+    fetch(baseUrl + "/login", {
       method: "POST",
       headers,
       body: JSON.stringify({ username, password })

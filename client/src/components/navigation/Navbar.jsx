@@ -5,10 +5,8 @@ const Navbar = ({ loggedIn, logoutUser }) => {
 
   const handleLogout = e => {
     e.preventDefault();
-    fetch("/logout")
-      .then(resp => {
-        logoutUser();
-      })
+
+    logoutUser()
   }
 
   const loggedInRoutes = () => {
